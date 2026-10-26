@@ -1,8 +1,18 @@
-import { drizzle } from "drizzle-orm/neon-http";
-import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-serverless";
+import { Pool, neonConfig } from "@neondatabase/serverless";
+import ws from "ws";
 import * as schema from "./schema";
 
-const sql = neon(process.env.DATABASE_SYNC_URL!);
+neonConfig.webSocketConstructor = ws;
 
-export const db = drizzle({ client: sql, schema });
+declare global {
+  // eslint-disable-next-line no-var
+  var __walletPool: Pool | undefined;
+}
+
+const pool = (globalThis.__walletPool ??= new Pool({
+  connectionString: process.env.DATABASE_SYNC_URL!,
+}));
+
+export const db = drizzle(pool, { schema });
 export * from "./schema";

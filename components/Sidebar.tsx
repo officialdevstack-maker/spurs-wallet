@@ -4,11 +4,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  LayoutDashboard, ArrowLeftRight, Send, Repeat, Landmark, Settings, Wallet, Bitcoin,
+  LayoutDashboard, ArrowLeftRight, Send, Repeat, Landmark, Settings, Wallet, Bitcoin, Plus,
 } from "lucide-react";
 
 export const NAV = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
+  { href: "/dashboard/topup", label: "Add money", icon: Plus },
   { href: "/dashboard/transactions", label: "Transactions", icon: ArrowLeftRight },
   { href: "/dashboard/crypto", label: "Crypto", icon: Bitcoin },
   { href: "/dashboard/send", label: "Send", icon: Send },
